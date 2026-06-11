@@ -1,0 +1,29 @@
+{
+    "users": [
+        {
+            "name": "Alex",
+            "email": "alex@gmail.com",
+            "projects": [
+                {
+                    "title": "CLI Tool",
+                    "tasks": []
+                },
+                {
+                    "title": "CLI",
+                    "description": "",
+                    "tasks": [
+                        {
+                            "title": "build",
+                            "status": "pending"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Alex",
+            "email": "alex@gmail.com",
+            "projects": []
+        }
+    ]
+}
