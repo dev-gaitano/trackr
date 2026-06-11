@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>Project Management CLI Tool</h1>
+    <h1>Trackr</h1>
 </div>
 
 <br />
