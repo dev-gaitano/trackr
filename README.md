@@ -1,5 +1,6 @@
 <div align="center">
     <img src="https://res.cloudinary.com/diwkfbsgv/image/upload/h_360,c_scale/v1781154801/772067f0-7234-4537-abbd-06770a3b8fce_rn2ra4.png" alt="banner_img">
+    <h1>Trackr</h1>
 </div>
 
 <br />
