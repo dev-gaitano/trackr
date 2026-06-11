@@ -1,51 +1,45 @@
 import json
 import os
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+DATA_DIR = "data"
 
 
 def save_json(filename, data):
-    """Save data as JSON to data/<filename>.
+    """Save data as a JSON file inside the data folder."""
 
-    Raises:
-        TypeError: if data is not JSON-serializable.
-        OSError: if the file cannot be written.
-    """
-    os.makedirs(DATA_DIR, exist_ok=True)
+    # Make sure the data folder exists before writing to it
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+
     path = os.path.join(DATA_DIR, filename)
-    try:
-        with open(path, "w") as f:
-            json.dump(data, f, indent=4)
-    except TypeError as e:
-        raise TypeError(f"Data for '{filename}' is not JSON-serializable: {e}")
-    except OSError as e:
-        raise OSError(f"Could not write to '{path}': {e}")
+
+    with open(path, "w") as f:
+        json.dump(data, f, indent=4)
 
 
 def load_json(filename):
-    """Load and return JSON data from data/<filename>.
+    """Load data from a JSON file inside the data folder.
 
-    Returns an empty list if the file does not exist or is empty.
-
-    Raises:
-        ValueError: if the file contains invalid JSON.
-        OSError: if the file cannot be read.
+    Returns an empty list if the file does not exist,
+    is empty, or contains invalid JSON.
     """
+
     path = os.path.join(DATA_DIR, filename)
 
+    # If the file doesn't exist yet, there's nothing to load
     if not os.path.exists(path):
         return []
 
-    try:
-        with open(path, "r") as f:
-            content = f.read().strip()
-    except OSError as e:
-        raise OSError(f"Could not read from '{path}': {e}")
+    with open(path, "r") as f:
+        content = f.read().strip()
 
+    # Handle an empty file
     if not content:
         return []
 
+    # Handle a file with broken/invalid JSON
     try:
         return json.loads(content)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON in '{path}': {e}")
+    except json.JSONDecodeError:
+        print(f"Warning: '{filename}' contains invalid JSON. Returning empty list.")
+        return []
