@@ -6,16 +6,14 @@ def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command")
 
-    # user
-
+    # ---------------- USER ----------------
     add_user_cmd = subparsers.add_parser("add-user")
     add_user_cmd.add_argument("--name", required=True)
     add_user_cmd.add_argument("--email", required=True)
 
     subparsers.add_parser("list-users")
 
-    # project
-
+    # ---------------- PROJECT ----------------
     add_project_cmd = subparsers.add_parser("add-project")
     add_project_cmd.add_argument("--user", required=True)
     add_project_cmd.add_argument("--title", required=True)
@@ -24,28 +22,19 @@ def main():
     list_projects_cmd = subparsers.add_parser("list-projects")
     list_projects_cmd.add_argument("--user", required=True)
 
-    # tasks
-
+    # ---------------- TASK ----------------
     add_task_cmd = subparsers.add_parser("add-task")
     add_task_cmd.add_argument("--project", required=True)
     add_task_cmd.add_argument("--title", required=True)
 
-    # parse-args
-
     args = parser.parse_args()
 
-    # load data
-
     data = load_json("db.json")
-
-    if not isinstance(data, dict):
-        data = {"users": []}
 
     if "users" not in data:
         data["users"] = []
 
-    # add user
-
+    # ---------------- ADD USER ----------------
     if args.command == "add-user":
         data["users"].append({
             "name": args.name,
@@ -55,13 +44,11 @@ def main():
         save_json("db.json", data)
         print("User added")
 
-    #  list users
-
+    # ---------------- LIST USERS ----------------
     elif args.command == "list-users":
         print([u["name"] for u in data["users"]])
 
-    # project
-
+    # ---------------- ADD PROJECT ----------------
     elif args.command == "add-project":
         for u in data["users"]:
             if u["name"] == args.user:
@@ -75,7 +62,7 @@ def main():
                 return
         print("User not found")
 
-    # list project
+    # ---------------- LIST PROJECTS ----------------
     elif args.command == "list-projects":
         for u in data["users"]:
             if u["name"] == args.user:
@@ -83,7 +70,7 @@ def main():
                 return
         print([])
 
-    # add task
+    # ---------------- ADD TASK ----------------
     elif args.command == "add-task":
         for u in data["users"]:
             for p in u["projects"]:
@@ -103,3 +90,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
