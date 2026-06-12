@@ -1,33 +1,51 @@
-import argparse #import python built in argparse... understand how to create commands.
-from utils.storage import save_json, load_json  # importing the two functions so i can use them.
+import argparse
+from utils.storage import save_json, load_json
 
 
-def main(): #create a function called main..instead of putting code in the file we put it inside function.
-    parser = argparse.ArgumentParser() #responsible for understanding and processing command line input.
-    subparsers = parser.add_subparsers(dest="command") #recognise all commands
+def main():
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command")
 
-    # ---------------- USER ----------------
-    add_user_cmd = subparsers.add_parser("add-user") # create command called add user.
-    add_user_cmd.add_argument("--name", required=True) #   define what arguments required
+    # user
+
+    add_user_cmd = subparsers.add_parser("add-user")
+    add_user_cmd.add_argument("--name", required=True)
     add_user_cmd.add_argument("--email", required=True)
 
-    subparsers.add_parser("list-users")   # retrieve and display.
+    subparsers.add_parser("list-users")
 
-    
+    # project
 
-    # list-users command
+    add_project_cmd = subparsers.add_parser("add-project")
+    add_project_cmd.add_argument("--user", required=True)
+    add_project_cmd.add_argument("--title", required=True)
+    add_project_cmd.add_argument("--description", default="")
 
+    list_projects_cmd = subparsers.add_parser("list-projects")
+    list_projects_cmd.add_argument("--user", required=True)
 
-    args = parser.parse_args() # reading what user has typed and store it.
+    # tasks
 
-    data = load_json("db.json") # loading existing data into the program.
+    add_task_cmd = subparsers.add_parser("add-task")
+    add_task_cmd.add_argument("--project", required=True)
+    add_task_cmd.add_argument("--title", required=True)
+
+    # parse-args
+
+    args = parser.parse_args()
+
+    # load data
+
+    data = load_json("db.json")
+
+    if not isinstance(data, dict):
+        data = {"users": []}
 
     if "users" not in data:
-        data = {
-            "users": [],
-        }
+        data["users"] = []
 
-    # ---------------- ADD USER ----------------
+    # add user
+
     if args.command == "add-user":
         data["users"].append({
             "name": args.name,
@@ -37,11 +55,13 @@ def main(): #create a function called main..instead of putting code in the file 
         save_json("db.json", data)
         print("User added")
 
-    # ---------------- LIST USERS ----------------
+    #  list users
+
     elif args.command == "list-users":
         print([u["name"] for u in data["users"]])
 
-    # ---------------- ADD PROJECT ----------------
+    # project
+
     elif args.command == "add-project":
         for u in data["users"]:
             if u["name"] == args.user:
@@ -55,7 +75,7 @@ def main(): #create a function called main..instead of putting code in the file 
                 return
         print("User not found")
 
-    # ---------------- LIST PROJECTS ----------------
+    # list project
     elif args.command == "list-projects":
         for u in data["users"]:
             if u["name"] == args.user:
@@ -63,9 +83,9 @@ def main(): #create a function called main..instead of putting code in the file 
                 return
         print([])
 
-    # ---------------- ADD TASK ----------------
+    # add task
     elif args.command == "add-task":
-        for u in data["users"]:   #loop through users
+        for u in data["users"]:
             for p in u["projects"]:
                 if p["title"] == args.project:
                     p["tasks"].append({
@@ -80,6 +100,6 @@ def main(): #create a function called main..instead of putting code in the file 
     else:
         print("Invalid command")
 
+
 if __name__ == "__main__":
     main()
-    

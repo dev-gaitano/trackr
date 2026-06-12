@@ -4,6 +4,41 @@
             "name": "Test name",
             "email": "test@email.com",
             "projects": []
+        },
+        {
+            "name": "Alex",
+            "email": "alex@gmail.com",
+            "projects": [
+                {
+                    "title": "CLI Tool",
+                    "description": "",
+                    "tasks": [
+                        {
+                            "title": "Implement add task",
+                            "status": "pending"
+                        },
+                        {
+                            "title": "Implement add task",
+                            "status": "pending"
+                        }
+                    ]
+                },
+                {
+                    "title": "CLI Tool",
+                    "description": "",
+                    "tasks": []
+                },
+                {
+                    "title": "CLI Tool",
+                    "description": "",
+                    "tasks": []
+                }
+            ]
+        },
+        {
+            "name": "Alex",
+            "email": "alex@gmail.com",
+            "projects": []
         }
     ]
 }
