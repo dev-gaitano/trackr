@@ -1,0 +1,9 @@
+{
+    "users": [
+        {
+            "name": "Test name",
+            "email": "test@email.com",
+            "projects": []
+        }
+    ]
+}
