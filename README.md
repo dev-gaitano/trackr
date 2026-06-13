@@ -52,7 +52,7 @@ The project uses JSON for saving and loading users, projects and tasks to ensure
 
 <div align="center">
     <p>This project is part of the Moringa school syllabus</p>
-    <p>Eugene Gaitano - </p>
+    <p>Eugene Gaitano -dev.gaitano@gmail.com </p>
     <p>Larry Thuku - </p>
     <p>Cynthia Njuguna - </p>
     <p>James Kusimba - </p>
