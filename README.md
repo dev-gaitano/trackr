@@ -55,6 +55,6 @@ The project uses JSON for saving and loading users, projects and tasks to ensure
     <p>Cynthia Njuguna - njugunacynthia32@gmail.com </p>
     <p>Larry Thuku - larrythuku18@gmail.com </p>
     <p>James Kusimba - kusimbajames92@gmail.com </p>
-    <p>Nungari Muchiru - </p>
+    <p>Nungari Muchiru - janenngr@gmail.com </p>
     <a href="#readme-top">back to top</a>
 </div>
