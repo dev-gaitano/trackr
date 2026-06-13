@@ -3,5 +3,11 @@
         "id": "1",
         "name": "Trackr",
         "description": "A CLI project tracker"
+    },
+    "19972b4e": {
+        "id": "19972b4e",
+        "name": "CLI Tool",
+        "description": "Building a CLI for project management",
+        "user_id": "07fced1f"
     }
 }

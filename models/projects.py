@@ -1,34 +1,30 @@
-import json
+from models.base import BaseModel
 
-class Project:
-    all_projects = []
-    FILE_PATH = 'data/projects.json'
 
-    def __init__(self, id, name, description):
-        self.id = id
+class Project(BaseModel):
+    FILE_PATH = "data/projects.json"
+
+    def __init__(self, id, name, description, user_id=None):
+        super().__init__(id)
         self.name = name
         self.description = description
-        Project.all_projects.append(self)
+        self.user_id = user_id
 
-    def __repr__(self):
-        return f'Project: {self.name}'
-
-    def save_to_json(self):
-        with open(self.FILE_PATH, 'r') as f:
-            existing_data = json.load(f)
-        existing_data[self.id] = {
+    def save(self):
+        data = {
             "id": self.id,
             "name": self.name,
-            "description": self.description
+            "description": self.description,
+            "user_id": self.user_id,
         }
-        with open(self.FILE_PATH, 'w') as f:
-            json.dump(existing_data, f, indent=4)
-            print(f'{self} saved successfully')
+        super().save(data)
 
-    @classmethod
-    def read_from_json(cls):
-        with open(cls.FILE_PATH, 'r') as f:
-            data = json.load(f)
-        print(data)
-        all_projects = [cls(**project_info) for project_info in data.values()]
-        return all_projects
+    def get_tasks(self):
+        """Relationship: Project -> Tasks"""
+        from models.tasks import Task
+
+        all_tasks = Task.get_all()
+        return [t for t in all_tasks if t.project_id == self.id]
+
+    def __repr__(self):
+        return f"<Project: {self.name}>"
